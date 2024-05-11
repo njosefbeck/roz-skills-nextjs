@@ -3,7 +3,6 @@ import { createContext, useContext, useState } from 'react';
 import { Job, JobSkill } from '../jobs';
 
 interface SelectedSkill {
-  jobId: string;
   level: number;
 }
 
@@ -17,7 +16,7 @@ interface SelectionProviderProps {
 
 interface SelectionProviderValue {
   getSelectedSkill: (skillId: string) => SelectedSkill | undefined;
-  processSkillLevelChange: (skillId: string, jobId: number, newLevel: number, prereqs: JobSkill["processedPrereqs"], parents: JobSkill["parents"]) => void;
+  processSkillLevelChange: (skillId: string, newLevel: number, prereqs: JobSkill["processedPrereqs"], parents: JobSkill["parents"]) => void;
   calcSelectedSkillPoints: (tree: Job["tree"]) => number;
 }
 
@@ -26,7 +25,6 @@ export const SelectionContext = createContext<SelectionProviderValue | undefined
 function createNewSelectedSkills(
   currentlySelected: SelectedSkills = {},
   skillId: string,
-  jobId: number,
   newLevel: number,
   prereqs: JobSkill["processedPrereqs"],
   parents: JobSkill["parents"]
@@ -52,7 +50,7 @@ function createNewSelectedSkills(
     return selected;
   }
   // TO DO: FIX JOB ID!!!
-  selected[skillId] = { jobId: jobId.toString(), level: newLevel };
+  selected[skillId] = { level: newLevel };
   if (parents) {
     /**
      * If newLevel is below what's required
@@ -82,13 +80,11 @@ function createNewSelectedSkills(
       if (selected[skillId]) {
         if (selected[skillId].level < requiredPrereqLevel) {
           selected[skillId] = {
-            jobId: selected[skillId].jobId,
             level: requiredPrereqLevel
           }
         }
       } else {
-        // TO DO: FIX JOB ID!!!
-        selected[skillId] = { jobId: '0', level: requiredPrereqLevel };
+        selected[skillId] = { level: requiredPrereqLevel };
       }
     }
   }
@@ -109,7 +105,6 @@ export default function SelectionProvider({
 
   function processSkillLevelChange(
     skillId: string,
-    jobId: number,
     newLevel: number,
     prereqs: JobSkill["processedPrereqs"],
     parents: JobSkill["parents"]
@@ -117,7 +112,6 @@ export default function SelectionProvider({
     const updatedSelectedSkills = createNewSelectedSkills(
       selectedSkills,
       skillId,
-      jobId,
       newLevel,
       prereqs,
       parents

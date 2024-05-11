@@ -6,13 +6,12 @@ import { Skill } from "../skills";
 
 interface LevelProps {
   skillId: string;
-  jobId: Job["id"];
   maxLevel: Skill["maxLevel"];
   prereqs: JobSkill["processedPrereqs"];
   parents: JobSkill["parents"];
 }
 
-export default function Level({ skillId, jobId, maxLevel, prereqs, parents }: LevelProps) {
+export default function Level({ skillId, maxLevel, prereqs, parents }: LevelProps) {
   const { getSelectedSkill, processSkillLevelChange } = useSelection();
   const selected = getSelectedSkill(skillId);
   const currentLevel = selected ? selected.level : 0;
@@ -21,7 +20,6 @@ export default function Level({ skillId, jobId, maxLevel, prereqs, parents }: Le
     const newLevel = currentLevel + 1;
     processSkillLevelChange(
       skillId,
-      jobId,
       newLevel,
       prereqs,
       parents
@@ -32,7 +30,6 @@ export default function Level({ skillId, jobId, maxLevel, prereqs, parents }: Le
     const newLevel = currentLevel - 1;
     processSkillLevelChange(
       skillId,
-      jobId,
       newLevel,
       prereqs,
       parents

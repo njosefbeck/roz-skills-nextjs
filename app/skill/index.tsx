@@ -5,12 +5,11 @@ import Image from 'next/image';
 
 interface SkillProps {
   id: string;
-  jobId: Job["id"];
   prereqs: JobSkill["processedPrereqs"];
   parents: JobSkill["parents"];
 }
 
-export default function Skill({ id, jobId, prereqs, parents }: SkillProps) {
+export default function Skill({ id, prereqs, parents }: SkillProps) {
   const skill = getSkillById(id);
   const icon = (
     <Image
@@ -24,7 +23,6 @@ export default function Skill({ id, jobId, prereqs, parents }: SkillProps) {
     <li key={id} className="flex">
       <Level
         skillId={id}
-        jobId={jobId}
         maxLevel={skill.maxLevel}
         prereqs={prereqs}
         parents={parents}
