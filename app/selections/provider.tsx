@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { Job, JobSkill } from '../jobs';
 import { useStateInUrl } from '../url';
 
@@ -95,9 +95,7 @@ export default function SelectionProvider({
   children
 }: SelectionProviderProps) {
   const { getStateFromUrlParam, syncStateToUrl } = useStateInUrl();
-  const [selectedSkills, setSelectedSkills] = useState<SelectedSkills | undefined>(() => {
-    return getStateFromUrlParam('t');
-  });
+  const selectedSkills = getStateFromUrlParam('t');
 
   function getSelectedSkill(skillId: string): SelectedSkill | undefined {
     if (!selectedSkills) {
@@ -119,7 +117,7 @@ export default function SelectionProvider({
       prereqs,
       parents
     );
-    setSelectedSkills(updatedSelectedSkills);
+    syncStateToUrl(updatedSelectedSkills);
   }
 
   function calcSelectedSkillPoints(tree: Job["tree"]) {
@@ -140,10 +138,6 @@ export default function SelectionProvider({
     }
     return skillPointsSelected;
   }
-
-  useEffect(() => {
-    syncStateToUrl(selectedSkills);
-  });
 
   const value: SelectionProviderValue = {
     getSelectedSkill,

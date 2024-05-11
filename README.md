@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - [ ] Figure out how to handle quest skills
 - [ ] Add input for increasing / decreasing skill level
-- [ ] Handle saving selected state in browser (and maybe local storage?)
+- [x] Handle saving selected state in browser
 
 ## Getting Started
 

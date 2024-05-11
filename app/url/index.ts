@@ -44,7 +44,7 @@ export function useStateInUrl() {
     if (compressed && compressed.length) {
       urlString = pathname + '?' + createQueryString('t', compressed);
     }
-    router.push(urlString);
+    router.push(urlString, { scroll: false });
   }
 
   return {
