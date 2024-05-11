@@ -1,6 +1,7 @@
 'use client';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Job, JobSkill } from '../jobs';
+import { useStateInUrl } from '../url';
 
 interface SelectedSkill {
   level: number;
@@ -49,7 +50,6 @@ function createNewSelectedSkills(
     }
     return selected;
   }
-  // TO DO: FIX JOB ID!!!
   selected[skillId] = { level: newLevel };
   if (parents) {
     /**
@@ -94,7 +94,10 @@ function createNewSelectedSkills(
 export default function SelectionProvider({
   children
 }: SelectionProviderProps) {
-  const [selectedSkills, setSelectedSkills] = useState<SelectedSkills>();
+  const { getStateFromUrlParam, syncStateToUrl } = useStateInUrl();
+  const [selectedSkills, setSelectedSkills] = useState<SelectedSkills | undefined>(() => {
+    return getStateFromUrlParam('t');
+  });
 
   function getSelectedSkill(skillId: string): SelectedSkill | undefined {
     if (!selectedSkills) {
@@ -137,6 +140,10 @@ export default function SelectionProvider({
     }
     return skillPointsSelected;
   }
+
+  useEffect(() => {
+    syncStateToUrl(selectedSkills);
+  });
 
   const value: SelectionProviderValue = {
     getSelectedSkill,
