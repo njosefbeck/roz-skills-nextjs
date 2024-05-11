@@ -7,9 +7,10 @@ interface SkillProps {
   id: string;
   jobId: Job["id"];
   prereqs: JobSkill["processedPrereqs"];
+  parents: JobSkill["parents"];
 }
 
-export default function Skill({ id, jobId, prereqs }: SkillProps) {
+export default function Skill({ id, jobId, prereqs, parents }: SkillProps) {
   const skill = getSkillById(id);
   const icon = (
     <Image
@@ -26,6 +27,7 @@ export default function Skill({ id, jobId, prereqs }: SkillProps) {
         jobId={jobId}
         maxLevel={skill.maxLevel}
         prereqs={prereqs}
+        parents={parents}
       />&nbsp;&nbsp;
       <span>{icon}</span>&nbsp;<span>{skill.id}</span>&nbsp;-&nbsp;<span>{skill.name}</span>
     </li>

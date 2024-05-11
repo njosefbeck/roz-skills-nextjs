@@ -9,6 +9,7 @@ export interface JobSkill {
   treeIndex: number;
   prereqs?: number[][];
   processedPrereqs?: ProcessedPrereqs;
+  parents?: Record<string, number>;
 }
 
 export interface Job {
@@ -23,32 +24,37 @@ const allJobs: Jobs = jobs;
 function extractPrereqs(
   allSkills: Record<string, JobSkill>,
   allPrereqs: Record<string, number>,
-  prereqs: JobSkill["prereqs"]
+  skill: JobSkill
 ) {
-  if (!prereqs) {
+  if (!skill.prereqs) {
     return;
   }
-  for (const prereq of prereqs) {
+  for (const prereq of skill.prereqs) {
     const [skillId, levelNeeded] = prereq;
     allPrereqs[skillId.toString()] = levelNeeded;
     const prereqSkill = allSkills[skillId.toString()];
+    if (!prereqSkill.parents) {
+      prereqSkill.parents = {};
+    }
+    if (!prereqSkill.parents[skill.id.toString()]) {
+      prereqSkill.parents[skill.id.toString()] = levelNeeded;
+    }
     if (!prereqSkill.prereqs) {
       continue;
     }
-    extractPrereqs(allSkills, allPrereqs, prereqSkill.prereqs);
+    extractPrereqs(allSkills, allPrereqs, prereqSkill);
   }
 }
 
-export function getPrereqs(skillId: string, skills: Record<string, JobSkill>) {
-  const startSkill = skills[skillId];
-  if (!startSkill) {
+export function getPrereqs(skill: JobSkill, skills: Record<string, JobSkill>) {
+  if (!skill) {
     return;
   }
-  if (!startSkill.prereqs) {
+  if (!skill.prereqs) {
     return;
   }
   const allPrereqs: Record<string, number> = {};
-  extractPrereqs(skills, allPrereqs, startSkill.prereqs);
+  extractPrereqs(skills, allPrereqs, skill);
   return allPrereqs;
 }
 
@@ -68,7 +74,7 @@ export function addPrereqsToSkills(...trees: Job["tree"][]) {
   const skills = getAllSkills(...trees);
   for (const skillId in skills) {
     const skill = skills[skillId];
-    skill.processedPrereqs = getPrereqs(skillId, skills);
+    skill.processedPrereqs = getPrereqs(skill, skills);
     skills[skillId] = skill;
   }
 }

@@ -19,6 +19,7 @@ export default function Job({ data, name }: JobProps) {
             id={skill.id.toString()}
             jobId={data.id}
             prereqs={skill.processedPrereqs}
+            parents={skill.parents}
           />
         ))
       }

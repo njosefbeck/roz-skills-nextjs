@@ -17,7 +17,7 @@ interface SelectionProviderProps {
 
 interface SelectionProviderValue {
   getSelectedSkill: (skillId: string) => SelectedSkill | undefined;
-  processSkillLevelChange: (skillId: string, jobId: number, newLevel: number, prereqs: JobSkill["processedPrereqs"]) => void;
+  processSkillLevelChange: (skillId: string, jobId: number, newLevel: number, prereqs: JobSkill["processedPrereqs"], parents: JobSkill["parents"]) => void;
   calcSelectedSkillPoints: (tree: Job["tree"]) => number;
 }
 
@@ -28,7 +28,8 @@ function createNewSelectedSkills(
   skillId: string,
   jobId: number,
   newLevel: number,
-  prereqs: JobSkill["processedPrereqs"]
+  prereqs: JobSkill["processedPrereqs"],
+  parents: JobSkill["parents"]
 ): SelectedSkills {
   const selected = {
     ...currentlySelected
@@ -41,10 +42,31 @@ function createNewSelectedSkills(
    */
   if (newLevel === 0 && selected[skillId]) {
     delete selected[skillId];
+    if (parents) {
+      for (const skillId in parents) {
+        if (selected[skillId]) {
+          delete selected[skillId];
+        }
+      }
+    }
     return selected;
   }
   // TO DO: FIX JOB ID!!!
   selected[skillId] = { jobId: jobId.toString(), level: newLevel };
+  if (parents) {
+    /**
+     * If newLevel is below what's required
+     * then we need to delete the parent
+     */
+    for (const skillId in parents) {
+      const requiredLevelForParent = parents[skillId];
+      if (selected[skillId]) {
+        if (newLevel < requiredLevelForParent) {
+          delete selected[skillId];
+        }
+      }
+    }
+  }
   /**
    * Process prereqs
    * If prereq is already selected,
@@ -89,14 +111,16 @@ export default function SelectionProvider({
     skillId: string,
     jobId: number,
     newLevel: number,
-    prereqs: JobSkill["processedPrereqs"]
+    prereqs: JobSkill["processedPrereqs"],
+    parents: JobSkill["parents"]
   ) {
     const updatedSelectedSkills = createNewSelectedSkills(
       selectedSkills,
       skillId,
       jobId,
       newLevel,
-      prereqs
+      prereqs,
+      parents
     );
     setSelectedSkills(updatedSelectedSkills);
   }
