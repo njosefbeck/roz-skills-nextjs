@@ -1,8 +1,8 @@
-import { Job } from "../jobs";
+import { Job as IJob } from "../jobs";
 import Skill from "../skill";
 
 interface JobProps {
-  data: Job;
+  data: IJob;
   name: string;
 }
 

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from "react";
 import { JobSkill } from "../jobs";
 import { useSelection } from "../selections/provider";
 import { Skill } from "../skills";
