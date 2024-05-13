@@ -1,4 +1,4 @@
-import { Job, getJob } from "../jobs";
+import { Job } from "../jobs";
 import Skill from "../skill";
 
 interface JobProps {
