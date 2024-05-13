@@ -23,7 +23,7 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
   return (
     <li
       key={id}
-      className="flex mt-2 border p-1 border-white rounded-md text-md bg-white"
+      className="flex mt-2 border p-1 border-white rounded-sm text-md bg-white"
     >
       {
         isQuestSkill ? (
