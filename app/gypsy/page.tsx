@@ -14,14 +14,13 @@ export default function Gypsy() {
   );
   return (
     <SelectionProvider>
-      <main className="p-3 container mx-auto">
-        <div className="flex">
+      <main className="p-6 container mx-auto max-w-screen-sm">
+        <div className="flex border p-2 border-white rounded-sm bg-white">
           <TotalSelected
             label="Archer"
             pointsPossible={40}
             skillsPossible={archer.tree}
           />
-          &nbsp;&nbsp;
           <TotalSelected
             label="Gypsy"
             pointsPossible={70}

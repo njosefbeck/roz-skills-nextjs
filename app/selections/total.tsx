@@ -17,6 +17,6 @@ export default function TotalSelected({
   const { calcSelectedSkillPoints } = useSelection();
   const pointsUsed = calcSelectedSkillPoints(skillsPossible);
   return (
-    <div>{label}: {pointsUsed} / {pointsPossible} Points</div>
+    <span className="text-sm uppercase pr-4">{label}: {pointsUsed} / {pointsPossible} Points</span>
   );
 }
