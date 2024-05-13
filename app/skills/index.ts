@@ -4,11 +4,13 @@ export interface Skill {
   id: number;
   key: string;
   maxLevel: number;
-  name: string;
+  nameKO: string;
+  nameEN: string;
   spAmount: number[];
   attackRange: number[];
-  bSeperateLv: boolean;
-  description: string[];
+  type?: string;
+  descriptionKO: string[];
+  descriptionEN: string;
 }
 
 type Skills = Record<string, Skill>;

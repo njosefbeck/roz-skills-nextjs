@@ -2,9 +2,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## TO DO
 
-- [ ] Figure out how to handle quest skills
-- [ ] Add input for increasing / decreasing skill level
+- [x] Figure out how to handle quest skills
+- [x] Add input for increasing / decreasing skill level
 - [x] Handle saving selected state in browser
+- [ ] Style!!!
+- [ ] Viewing a skill's description
+- [ ] Incorporate English translation
 
 ## Getting Started
 

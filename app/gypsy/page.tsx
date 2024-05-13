@@ -14,19 +14,24 @@ export default function Gypsy() {
   );
   return (
     <SelectionProvider>
-      <main className="p-3">
-        <TotalSelected
-          pointsPossible={40}
-          skillsPossible={archer.tree}
-        />
+      <main className="p-3 container mx-auto">
+        <div className="flex">
+          <TotalSelected
+            label="Archer"
+            pointsPossible={40}
+            skillsPossible={archer.tree}
+          />
+          &nbsp;&nbsp;
+          <TotalSelected
+            label="Gypsy"
+            pointsPossible={70}
+            skillsPossible={{
+              ...dancer.tree,
+              ...gypsy.tree
+            }}
+          />
+        </div>
         <Job name="Archer" data={archer} />
-        <TotalSelected
-          pointsPossible={70}
-          skillsPossible={{
-            ...dancer.tree,
-            ...gypsy.tree
-          }}
-        />
         <Job name="Dancer" data={dancer} />
         <Job name="Gypsy" data={gypsy} />
       </main>

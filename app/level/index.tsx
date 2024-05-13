@@ -1,6 +1,7 @@
 'use client';
 
-import { Job, JobSkill } from "../jobs";
+import { useState } from "react";
+import { JobSkill } from "../jobs";
 import { useSelection } from "../selections/provider";
 import { Skill } from "../skills";
 
@@ -14,20 +15,11 @@ interface LevelProps {
 export default function Level({ skillId, maxLevel, prereqs, parents }: LevelProps) {
   const { getSelectedSkill, processSkillLevelChange } = useSelection();
   const selected = getSelectedSkill(skillId);
-  const currentLevel = selected ? selected.level : 0;
+  const currentLevel = selected ? selected.level.toString() : '0';
+  const possibleLevels = Array.from(Array(maxLevel + 1).keys());
 
-  function increase() {
-    const newLevel = currentLevel + 1;
-    processSkillLevelChange(
-      skillId,
-      newLevel,
-      prereqs,
-      parents
-    );
-  }
-
-  function decrease() {
-    const newLevel = currentLevel - 1;
+  function changeLevel(event: React.ChangeEvent<HTMLSelectElement>) {
+    const newLevel = parseInt(event.target.value);
     processSkillLevelChange(
       skillId,
       newLevel,
@@ -38,17 +30,23 @@ export default function Level({ skillId, maxLevel, prereqs, parents }: LevelProp
 
   return (
     <>
-      <span>{currentLevel}</span> / <span>{maxLevel}</span>&nbsp;
-      <button
-        disabled={currentLevel === maxLevel}
-        onClick={increase}
-      >
-        Increase
-      </button>&nbsp;
-      <button
-        disabled={currentLevel === 0}
-        onClick={decrease}
-      >Decrease</button>
+      <span className="pr-1">
+        <select
+          onChange={changeLevel}
+          value={currentLevel}
+          style={{
+            width: '40px'
+          }}
+        >
+          {
+            possibleLevels.map(level => (
+              <option key={level} value={level.toString()}>{level.toString()}</option>
+            ))
+          }
+        </select>
+      </span>
+      /
+      <span style={{ width: '25px' }} className="pl-1">{maxLevel}</span>
     </>
   );
 }
