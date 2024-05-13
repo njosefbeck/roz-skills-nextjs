@@ -16,7 +16,7 @@ export default function Gypsy() {
   return (
     <Suspense>
       <SelectionProvider>
-        <main className="p-6 container mx-auto max-w-screen-sm">
+        <main className="p-6 container mx-auto">
           <div className="flex border p-2 border-white rounded-sm bg-white">
             <TotalSelected
               label="Archer"
@@ -32,9 +32,11 @@ export default function Gypsy() {
               }}
             />
           </div>
-          <Job name="Archer" data={archer} />
-          <Job name="Dancer" data={dancer} />
-          <Job name="Gypsy" data={gypsy} />
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            <Job name="Archer" data={archer} />
+            <Job name="Dancer" data={dancer} />
+            <Job name="Gypsy" data={gypsy} />
+          </div>
         </main>
       </SelectionProvider>
     </Suspense>
