@@ -2,6 +2,8 @@ import { JobSkill } from "../jobs";
 import Level from "../level";
 import { getSkillById } from "../skills";
 import Image from 'next/image';
+import SkillWrapper from './wrapper';
+import SkillDescription from "./description";
 
 interface SkillProps {
   id: string;
@@ -21,24 +23,34 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
     />
   );
   return (
-    <li
-      key={id}
-      className="flex mt-2 border p-1 border-white rounded-sm text-md bg-white"
+    <SkillWrapper
+      skillId={id}
+      prereqs={prereqs}
     >
-      {
-        isQuestSkill ? (
-          <span style={{ width: '74px' }}>Quest</span>
-        ) : (
-          <Level
-            skillId={id}
-            maxLevel={skill.maxLevel}
-            prereqs={prereqs}
-            parents={parents}
+      <div className="flex">
+        {
+          isQuestSkill ? (
+            <span style={{ width: '74px' }}>Quest</span>
+          ) : (
+            <Level
+              skillId={id}
+              maxLevel={skill.maxLevel}
+              prereqs={prereqs}
+              parents={parents}
+            />
+          )
+        }
+        <span className="pl-3">{icon}</span>
+        <span className="pl-2">{skill.nameKO}</span>
+      </div>
+      {/*<div className="text-sm">
+        <hr className="mt-2" />
+        <div className="mt-2">
+          <SkillDescription
+            description={skill.descriptionKO}
           />
-        )
-      }
-      <span className="pl-3">{icon}</span>
-      <span className="pl-2">{skill.nameKO}</span>
-    </li>
+        </div>
+      </div>*/}
+    </SkillWrapper>
   )
 }

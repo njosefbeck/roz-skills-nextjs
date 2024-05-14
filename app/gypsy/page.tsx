@@ -3,6 +3,7 @@ import Job from "../job";
 import { addPrereqsToSkills, getJob } from "../jobs";
 import SelectionProvider from "../selections/provider";
 import TotalSelected from "../selections/total";
+import TreeOptions from "../selections/options";
 
 export default function Gypsy() {
   const archer = getJob("3");
@@ -31,6 +32,7 @@ export default function Gypsy() {
                 ...gypsy.tree
               }}
             />
+            <TreeOptions />
           </div>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <Job name="Archer" data={archer} />

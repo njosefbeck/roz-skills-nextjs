@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { Job, JobSkill } from '../jobs';
 import { useStateInUrl } from '../url';
 
@@ -19,6 +19,11 @@ interface SelectionProviderValue {
   getSelectedSkill: (skillId: string) => SelectedSkill | undefined;
   processSkillLevelChange: (skillId: string, newLevel: number, prereqs: JobSkill["processedPrereqs"], parents: JobSkill["parents"]) => void;
   calcSelectedSkillPoints: (tree: Job["tree"]) => number;
+  isHighlightedPrereq: (skillId: string) => boolean;
+  highlightPrereqs: (skillIds: string[]) => void;
+  clearHighlightPrereqs: () => void;
+  hideNotSelected: boolean;
+  toggleHideSkills: () => void;
 }
 
 export const SelectionContext = createContext<SelectionProviderValue | undefined>(undefined);
@@ -96,6 +101,8 @@ export default function SelectionProvider({
 }: SelectionProviderProps) {
   const { getStateFromUrlParam, syncStateToUrl } = useStateInUrl();
   const selectedSkills = getStateFromUrlParam('t');
+  const [highlightedPrereqs, setHighlightedPrereqs] = useState<string[]>();
+  const [hideNotSelected, setHideNotSelected] = useState(false);
 
   function getSelectedSkill(skillId: string): SelectedSkill | undefined {
     if (!selectedSkills) {
@@ -139,10 +146,34 @@ export default function SelectionProvider({
     return skillPointsSelected;
   }
 
+  function isHighlightedPrereq(skillId: string) {
+    if (!highlightedPrereqs || !highlightedPrereqs.length) {
+      return false;
+    }
+    return highlightedPrereqs.includes(skillId);
+  }
+
+  function highlightPrereqs(skillIds: string[]) {
+    setHighlightedPrereqs(skillIds);
+  }
+
+  function clearHighlightPrereqs() {
+    setHighlightedPrereqs(undefined);
+  }
+
+  function toggleHideSkills() {
+    setHideNotSelected(old => !old);
+  }
+
   const value: SelectionProviderValue = {
     getSelectedSkill,
     processSkillLevelChange,
-    calcSelectedSkillPoints
+    calcSelectedSkillPoints,
+    isHighlightedPrereq,
+    highlightPrereqs,
+    clearHighlightPrereqs,
+    hideNotSelected,
+    toggleHideSkills
   };
 
   return <SelectionContext.Provider value={value}>{children}</SelectionContext.Provider>
