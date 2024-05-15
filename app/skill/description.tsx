@@ -4,7 +4,8 @@ interface SkillDescriptionProps {
 }
 
 function replaceHexCodes(content: string) {
-  return <span>{content}</span>;
+  const regex = /\^000000|\^777777|\^993300|\^000099|\^ffffff/g;
+  return content.replace(regex, '');
 }
 
 function filterOutPrereqs(content: string) {
@@ -14,10 +15,18 @@ function filterOutPrereqs(content: string) {
   return true;
 }
 
+function filterOutMaxLevel(content: string) {
+  if (content.includes('MAX Lv')) {
+    return false;
+  }
+  return true;
+}
+
 function formatDescription(description: string[]) {
   return description
     .slice(1)
     .filter(filterOutPrereqs)
+    .filter(filterOutMaxLevel)
     .map(replaceHexCodes);
 }
 

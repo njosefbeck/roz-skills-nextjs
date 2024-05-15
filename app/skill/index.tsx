@@ -1,9 +1,12 @@
+'use client';
+
 import { JobSkill } from "../jobs";
 import Level from "../level";
 import { getSkillById } from "../skills";
 import Image from 'next/image';
 import SkillWrapper from './wrapper';
 import SkillDescription from "./description";
+import { useState } from "react";
 
 interface SkillProps {
   id: string;
@@ -12,6 +15,7 @@ interface SkillProps {
 }
 
 export default function Skill({ id, prereqs, parents }: SkillProps) {
+  const [isDescVisible, setIsDescVisible] = useState(false);
   const skill = getSkillById(id);
   const isQuestSkill = skill?.type === 'Quest';
   const icon = (
@@ -27,30 +31,39 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
       skillId={id}
       prereqs={prereqs}
     >
-      <div className="flex">
-        {
-          isQuestSkill ? (
-            <span style={{ width: '74px' }}>Quest</span>
-          ) : (
-            <Level
-              skillId={id}
-              maxLevel={skill.maxLevel}
-              prereqs={prereqs}
-              parents={parents}
-            />
-          )
-        }
-        <span className="pl-3">{icon}</span>
-        <span className="pl-2">{skill.nameKO}</span>
-      </div>
-      {/*<div className="text-sm">
-        <hr className="mt-2" />
-        <div className="mt-2">
-          <SkillDescription
-            description={skill.descriptionKO}
-          />
+      <div className="flex justify-between">
+        <div className="flex">
+          {
+            isQuestSkill ? (
+              <span style={{ width: '74px' }}>Quest</span>
+            ) : (
+              <Level
+                skillId={id}
+                maxLevel={skill.maxLevel}
+                prereqs={prereqs}
+                parents={parents}
+              />
+            )
+          }
+          <span className="pl-3">{icon}</span>
+          <span className="pl-2">{skill.nameKO}</span>
         </div>
-      </div>*/}
+        <button
+          className="font-mono pr-2 font-bold"
+          onClick={() => setIsDescVisible(prev => !prev)}
+        >
+          &darr;
+        </button>
+      </div>
+      {
+        isDescVisible ? (
+          <div className="text-sm bg-white p-2 mt-2 rounded-sm">
+            <SkillDescription
+              description={skill.descriptionKO}
+            />
+          </div>
+        ) : null
+      }
     </SkillWrapper>
   )
 }
