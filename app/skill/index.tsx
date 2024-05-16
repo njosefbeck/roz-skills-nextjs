@@ -18,6 +18,7 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
   const [isDescVisible, setIsDescVisible] = useState(false);
   const skill = getSkillById(id);
   const isQuestSkill = skill?.type === 'Quest';
+  const description = skill.descriptionEN ? skill.descriptionEN : skill.descriptionKO;
   const icon = (
     <Image
       src={`https://static.divine-pride.net/images/skill/${id}.png`}
@@ -46,7 +47,7 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
             )
           }
           <span className="pl-3">{icon}</span>
-          <span className="pl-2">{skill.nameKO}</span>
+          <span className="pl-2 text-sm" style={{ "paddingTop": "2px"}}>{skill.nameEN}</span>
         </div>
         <button
           className="font-mono pr-2 font-bold"
@@ -59,7 +60,7 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
         isDescVisible ? (
           <div className="text-sm bg-white p-2 mt-2 rounded-sm">
             <SkillDescription
-              description={skill.descriptionKO}
+              description={description}
             />
           </div>
         ) : null

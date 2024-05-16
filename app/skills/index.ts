@@ -10,7 +10,7 @@ export interface Skill {
   attackRange: number[];
   type?: string;
   descriptionKO: string[];
-  descriptionEN: string;
+  descriptionEN?: string[];
 }
 
 type Skills = Record<string, Skill>;
