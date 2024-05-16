@@ -4,7 +4,7 @@ interface SkillDescriptionProps {
 }
 
 function replaceHexCodes(content: string) {
-  const regex = /\^000000|\^777777|\^993300|\^000099|\^ffffff|\^CC3399/g;
+  const regex = /\^000000|\^777777|\^993300|\^000099|\^ffffff|\^CC3399|^FF0000/g;
   return content.replace(regex, '');
 }
 
