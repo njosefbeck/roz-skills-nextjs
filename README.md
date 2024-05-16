@@ -6,8 +6,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Add input for increasing / decreasing skill level
 - [x] Handle saving selected state in browser
 - [x] Style!!!
-- [ ] Viewing a skill's description
-- [ ] Incorporate English translation
+- [x] Viewing a skill's description
+- [x] Incorporate English translation
+- [ ] Add EN / KO language toggle
+- [ ] Add second page to test functionality
+- [ ] Add home page
+- [ ] Fix select width not behaving properly on mobile
 
 ## Getting Started
 
