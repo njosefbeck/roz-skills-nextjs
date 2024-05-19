@@ -8,15 +8,8 @@ function replaceHexCodes(content: string) {
   return content.replace(regex, '');
 }
 
-function filterOutPrereqs(content: string) {
-  if (content.includes('습득조건')) {
-    return false
-  }
-  return true;
-}
-
 function filterOutMaxLevel(content: string) {
-  if (content.includes('MAX Lv')) {
+  if (content.includes('MAX Lv') || content.includes('Max Level')) {
     return false;
   }
   return true;
@@ -25,7 +18,6 @@ function filterOutMaxLevel(content: string) {
 function formatDescription(description: string[]) {
   return description
     .slice(1)
-    .filter(filterOutPrereqs)
     .filter(filterOutMaxLevel)
     .map(replaceHexCodes);
 }

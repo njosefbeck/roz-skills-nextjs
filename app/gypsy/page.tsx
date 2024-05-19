@@ -21,12 +21,12 @@ export default function Gypsy() {
           <div className="flex border p-2 border-white rounded-sm bg-white">
             <TotalSelected
               label="Archer"
-              pointsPossible={50}
+              pointsPossible={49}
               skillsPossible={archer.tree}
             />
             <TotalSelected
               label="Gypsy"
-              pointsPossible={70}
+              pointsPossible={69}
               skillsPossible={{
                 ...dancer.tree,
                 ...gypsy.tree
