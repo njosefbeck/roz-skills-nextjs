@@ -19,8 +19,10 @@ export default function SkillWrapper({ children, skillId, prereqs }: SkillWrappe
   const skill = getSelectedSkill(skillId);
   const isHighlighted = isHighlightedPrereq(skillId);
   let bgClass = 'bg-white';
-  if (skill || isHighlighted) {
-    bgClass = 'bg-lime-200';
+  if (skill) {
+    bgClass = 'bg-lime-300';
+  } else if (isHighlighted) {
+    bgClass = 'bg-lime-100';
   }
 
   function highlight() {
@@ -40,7 +42,7 @@ export default function SkillWrapper({ children, skillId, prereqs }: SkillWrappe
 
   return (
     <li
-      className={`mt-2 p-1 rounded-sm text-md ${bgClass}`}
+      className={`mt-2 p-1 rounded-sm text-md ${bgClass} hover:bg-lime-200`}
       onMouseEnter={highlight}
       onMouseLeave={unhighlight}
     >

@@ -7,6 +7,7 @@ import Image from 'next/image';
 import SkillWrapper from './wrapper';
 import SkillDescription from "./description";
 import { useState } from "react";
+import info from './info-icon.png';
 
 interface SkillProps {
   id: string;
@@ -25,6 +26,14 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
       width="24"
       height="24"
       alt={`${skill.nameKO} Icon`}
+    />
+  );
+  const infoIcon = (
+    <Image
+      src={info}
+      width="19"
+      height="19"
+      alt="Info Icon"
     />
   );
   return (
@@ -53,7 +62,7 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
           className="font-mono pr-2 font-bold"
           onClick={() => setIsDescVisible(prev => !prev)}
         >
-          &darr;
+          {infoIcon}
         </button>
       </div>
       {
