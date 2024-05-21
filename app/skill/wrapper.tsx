@@ -28,7 +28,7 @@ export default function SkillWrapper({ children, skillId, prereqs }: SkillWrappe
   function highlight() {
     if (prereqs) {
       const skillIds = Object.keys(prereqs);
-      highlightPrereqs([skillId, ...skillIds]);
+      highlightPrereqs([...skillIds]);
     }
   }
 
