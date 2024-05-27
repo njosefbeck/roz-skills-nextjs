@@ -8,15 +8,15 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 const TITLES = {
-  firstJob: 'Archer',
-  secondJob: 'Dancer',
-  transcendentJob: 'Gypsy'
+  firstJob: 'Mage',
+  secondJob: 'Wizard',
+  transcendentJob: 'High Wizard'
 }
 
 const IDS = {
-  firstJob: '3',
-  secondJob: '20',
-  transcendentJob: '4021'
+  firstJob: '2',
+  secondJob: '9',
+  transcendentJob: '4010'
 }
 
 export const metadata: Metadata = {

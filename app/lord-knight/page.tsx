@@ -7,19 +7,31 @@ import TreeOptions from "../selections/options";
 import { Metadata } from "next";
 import Link from "next/link";
 
+const TITLES = {
+  firstJob: 'Swordsman',
+  secondJob: 'Knight',
+  transcendentJob: 'Lord Knight'
+}
+
+const IDS = {
+  firstJob: '1',
+  secondJob: '7',
+  transcendentJob: '4008'
+}
+
 export const metadata: Metadata = {
-  title: 'Lord Knight Skills',
+  title: `${TITLES.transcendentJob} Skills`,
   description: 'An English-language skill simulator for the Korean Ragnarok Online Zero MMORPG.'
 }
 
-export default function LordKnight() {
-  const swordsman = getJob("1");
-  const knight = getJob("7");
-  const lordKnight = getJob("4008");
+export default function SkillTree() {
+  const firstJob = getJob(IDS.firstJob);
+  const secondJob = getJob(IDS.secondJob);
+  const transcendentJob = getJob(IDS.transcendentJob);
   addPrereqsToSkills(
-    swordsman.tree,
-    knight.tree,
-    lordKnight.tree
+    firstJob.tree,
+    secondJob.tree,
+    transcendentJob.tree
   );
   return (
     <Suspense>
@@ -34,24 +46,24 @@ export default function LordKnight() {
               Home
             </Link>
             <TotalSelected
-              label="Swordsman"
+              label={TITLES.firstJob}
               pointsPossible={49}
-              skillsPossible={swordsman.tree}
+              skillsPossible={firstJob.tree}
             />
             <TotalSelected
-              label="Lord Knight"
+              label={TITLES.transcendentJob}
               pointsPossible={69}
               skillsPossible={{
-                ...knight.tree,
-                ...lordKnight.tree
+                ...secondJob.tree,
+                ...transcendentJob.tree
               }}
             />
             <TreeOptions />
           </div>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-            <Job name="Swordsman" data={swordsman} />
-            <Job name="Knight" data={knight} />
-            <Job name="Lord Knight" data={lordKnight} />
+            <Job name={TITLES.firstJob} data={firstJob} />
+            <Job name={TITLES.secondJob} data={secondJob} />
+            <Job name={TITLES.transcendentJob} data={transcendentJob} />
           </div>
         </main>
       </SelectionProvider>

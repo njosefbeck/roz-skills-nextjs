@@ -7,7 +7,7 @@ describe('Skills', () => {
     const result = getSkillById('1');
     expect(result.id).toBe(1);
     expect(result.key).toBe('NV_BASIC');
-    expect(result.name).toBe('기본기능');
+    expect(result.nameKO).toBe('기본기능');
   });
 
 });

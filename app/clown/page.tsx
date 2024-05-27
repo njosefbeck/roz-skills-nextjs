@@ -9,14 +9,14 @@ import Link from "next/link";
 
 const TITLES = {
   firstJob: 'Archer',
-  secondJob: 'Dancer',
-  transcendentJob: 'Gypsy'
+  secondJob: 'Bard',
+  transcendentJob: 'Clown'
 }
 
 const IDS = {
   firstJob: '3',
-  secondJob: '20',
-  transcendentJob: '4021'
+  secondJob: '19',
+  transcendentJob: '4020'
 }
 
 export const metadata: Metadata = {
