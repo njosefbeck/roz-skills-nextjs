@@ -42,7 +42,7 @@ export default function SkillWrapper({ children, skillId, prereqs }: SkillWrappe
 
   return (
     <li
-      className={`mt-2 p-1 rounded-sm text-md ${bgClass}`}
+      className={`mt-2 p-1 rounded-sm text-md transition ease-in-out ${bgClass}`}
       onMouseEnter={highlight}
       onMouseLeave={unhighlight}
     >

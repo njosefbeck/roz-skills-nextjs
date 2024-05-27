@@ -41,10 +41,10 @@ const CLASSES = [
 export default function Home() {
   return (
     <main className="p-6 container max-w-lg mx-auto">
-      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-4">
+      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-4 mt-8">
         {
           CLASSES.map(job => (
-            <li key={job.name} className="bg-white/50 hover:bg-white rounded-sm text-center">
+            <li key={job.name} className="bg-white/50 hover:bg-white rounded-sm text-center transition ease-in-out">
               <Link href={job.href}>
                 <Image
                   src={job.image}

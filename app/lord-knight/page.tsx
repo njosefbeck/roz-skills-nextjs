@@ -4,6 +4,13 @@ import { addPrereqsToSkills, getJob } from "../jobs";
 import SelectionProvider from "../selections/provider";
 import TotalSelected from "../selections/total";
 import TreeOptions from "../selections/options";
+import { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: 'Lord Knight Skills',
+  description: 'An English-language skill simulator for the Korean Ragnarok Online Zero MMORPG.'
+}
 
 export default function LordKnight() {
   const swordsman = getJob("1");
@@ -18,7 +25,14 @@ export default function LordKnight() {
     <Suspense>
       <SelectionProvider>
         <main className="p-6 container mx-auto">
-          <div className="flex border p-2 border-white rounded-sm bg-white">
+          <div className="grid grid-cols-1 md:grid-cols-4 border p-2 border-white rounded-sm bg-white">
+            <Link
+              href="/"
+              className="pr-5 uppercase text-sm text-sky-400 hover:text-sky-500 font-bold"
+              style={{ paddingTop : 2 }}
+            >
+              Home
+            </Link>
             <TotalSelected
               label="Swordsman"
               pointsPossible={49}

@@ -30,12 +30,12 @@ export default function TotalSelected({
   const usedEnough = pointsUsed === pointsPossible;
 
   return (
-    <span className="text-sm uppercase pr-5">
+    <span className="text-sm uppercase pr-5"  style={{ paddingTop: 2 }}>
       {label}
       <span className="font-bold pl-3">
         <span className={calcPointsUsedClass(usedTooMany, usedEnough)}>{pointsUsed}</span>
         <span className="px-1">/</span>
-        {pointsPossible} Points
+        {pointsPossible}
       </span>
     </span>
   );
