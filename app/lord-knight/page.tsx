@@ -25,7 +25,7 @@ export default function LordKnight() {
     <Suspense>
       <SelectionProvider>
         <main className="p-6 container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 border p-2 border-white rounded-sm bg-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 border p-2 border-white rounded-sm bg-white">
             <Link
               href="/"
               className="pr-5 uppercase text-sm text-sky-400 hover:text-sky-500 font-bold"

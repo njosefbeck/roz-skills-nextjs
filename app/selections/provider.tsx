@@ -24,6 +24,8 @@ interface SelectionProviderValue {
   clearHighlightPrereqs: () => void;
   hideNotSelected: boolean;
   toggleHideSkills: () => void;
+  showKorean: boolean;
+  toggleKorean: () => void;
 }
 
 export const SelectionContext = createContext<SelectionProviderValue | undefined>(undefined);
@@ -103,6 +105,7 @@ export default function SelectionProvider({
   const selectedSkills = getStateFromUrlParam('t');
   const [highlightedPrereqs, setHighlightedPrereqs] = useState<string[]>();
   const [hideNotSelected, setHideNotSelected] = useState(false);
+  const [showKorean, setShowKorean] = useState(false);
 
   function getSelectedSkill(skillId: string): SelectedSkill | undefined {
     if (!selectedSkills) {
@@ -165,6 +168,10 @@ export default function SelectionProvider({
     setHideNotSelected(old => !old);
   }
 
+  function toggleKorean() {
+    setShowKorean(old => !old);
+  }
+
   const value: SelectionProviderValue = {
     getSelectedSkill,
     processSkillLevelChange,
@@ -173,7 +180,9 @@ export default function SelectionProvider({
     highlightPrereqs,
     clearHighlightPrereqs,
     hideNotSelected,
-    toggleHideSkills
+    toggleHideSkills,
+    showKorean,
+    toggleKorean
   };
 
   return <SelectionContext.Provider value={value}>{children}</SelectionContext.Provider>

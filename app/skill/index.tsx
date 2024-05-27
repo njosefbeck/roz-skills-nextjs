@@ -8,6 +8,7 @@ import SkillWrapper from './wrapper';
 import SkillDescription from "./description";
 import { useState } from "react";
 import info from './info-icon.png';
+import { useSelection } from "../selections/provider";
 
 interface SkillProps {
   id: string;
@@ -15,11 +16,27 @@ interface SkillProps {
   parents: JobSkill["parents"];
 }
 
+function getSkillName(showKorean: boolean, nameKO: string, nameEN: string) {
+  if (showKorean || !nameEN) {
+    return nameKO;
+  }
+  return nameEN;
+}
+
+function getSkillDescription(showKorean: boolean, descKO: string[], descEN: string[] | undefined) {
+  if (showKorean || !descEN) {
+    return descKO;
+  }
+  return descEN;
+}
+
 export default function Skill({ id, prereqs, parents }: SkillProps) {
+  const { showKorean } = useSelection();
   const [isDescVisible, setIsDescVisible] = useState(false);
   const skill = getSkillById(id);
   const isQuestSkill = skill?.type === 'Quest';
-  const description = skill.descriptionEN ? skill.descriptionEN : skill.descriptionKO;
+  const name = getSkillName(showKorean, skill.nameKO, skill.nameEN);
+  const description = getSkillDescription(showKorean, skill.descriptionKO, skill.descriptionEN);
   const icon = (
     <Image
       src={`https://static.divine-pride.net/images/skill/${id}.png`}
@@ -56,7 +73,7 @@ export default function Skill({ id, prereqs, parents }: SkillProps) {
             )
           }
           <span className="pl-3">{icon}</span>
-          <span className="pl-2 text-sm" style={{ "paddingTop": "2px"}}>{skill.nameEN}</span>
+          <span className="pl-2 text-sm" style={{ "paddingTop": "2px"}}>{name}</span>
         </div>
         <button
           className="font-mono pr-2 font-bold"
