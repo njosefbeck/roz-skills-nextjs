@@ -31,7 +31,18 @@ function extractPrereqs(
   }
   for (const prereq of skill.prereqs) {
     const [skillId, levelNeeded] = prereq;
-    allPrereqs[skillId.toString()] = levelNeeded;
+    const currentPrereqLevel = allPrereqs[skillId.toString()];
+    /**
+     * There are times where an earlier prereq
+     * requirement would be lower than what we
+     * actually want (ex: Grand Cross). This
+     * logic fixes that issue.
+     */
+    let level = levelNeeded;
+    if (currentPrereqLevel && level < currentPrereqLevel) {
+      level = currentPrereqLevel;
+    }
+    allPrereqs[skillId.toString()] = level;
     const prereqSkill = allSkills[skillId.toString()];
     if (!prereqSkill.parents) {
       prereqSkill.parents = {};
