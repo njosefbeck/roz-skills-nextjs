@@ -43,12 +43,12 @@ export default function SkillTree() {
             </Link>
             <TotalSelected
               label={TITLES.firstJob}
-              pointsPossible={49}
+              pointsPossible={69}
               skillsPossible={firstJob.tree}
             />
             <TotalSelected
               label={TITLES.secondJob}
-              pointsPossible={69}
+              pointsPossible={59}
               skillsPossible={secondJob.tree}
             />
             <TreeOptions />
